@@ -60,10 +60,10 @@ namespace RockPaperScizzorsLizardSpock
                 Console.Read();
             }
         }
-        public static string UserInterface()
-        {
+        //public static string UserInterface()
+        //{
 
-        }
+        //}
 
 
 

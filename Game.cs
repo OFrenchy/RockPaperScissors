@@ -18,54 +18,40 @@ namespace RockPaperScizzorsLizardSpock
         private Rule[] rules;
         // round array of type Round
         private Round[] round;
-        private UserInterface UserInterface;
-
-
-
-
-
+        //private UserInterface userInterface;
+        
 
         // constructor … Spawns A …
         public Game()
         {
-            UserInterface userInterface = new UserInterface();
-
             
         }
 
         // member methods - … Can Do …
         public void playRockPaperScissorsLizardSpock(int numberOfPlayers)
         {
-            // DONE - //TODO - change into an array or list of Player-s, or Player[]
-            //Player player1 = new Player();
-            //Player player2 = new Player();
-
             // Create the players list
             List<Player> players = new List<Player>();
             for (int i = 0; i < numberOfPlayers; i++)
             {
-                players.Add( new Player());
+                players.Add(new Player());
             }
-
             
-
+            // TODO - ccreate/add rules & methods
             Rules rules = new Rules();
-
-
-            //do round, then
-            //    increment score, 
-            //reset winnerThiusRounbd
-
-            // string roundWinner = "";
+            
+            string roundResults = "";
+            //string roundSelections = "";
             do
             {
-                Round thisRound = new Round(player1, player2);
-                // roundWinner = thisRound.playRound();
-                thisRound.playRound();
-                //pronounce the winner of this rounds
-                rules.
+                Player roundWinner = new Player();
+                Round thisRound = new Round();
+                roundResults = thisRound.playRound(players);
+                //pronounce the winner of this round
+                roundResults = roundResults + "\n" + rules.DetermineRoundWinner(players);
+                UserInterface.displayMessage(roundResults, true);
             }
-            while (player1.score < 2 && player2.score < 2);
+            while (! rules.gameOver(players));
             // pronounce the winner
 
         }
