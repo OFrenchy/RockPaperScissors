@@ -13,7 +13,7 @@ namespace RockPaperScizzorsLizardSpock
 
         // constructor … Spawns A …
         public Human(string name, bool isHuman)
-            :base(name,isHuman)
+            :base()    //(name,isHuman )
         {
             this.name = name;
             this.isHuman = isHuman;
