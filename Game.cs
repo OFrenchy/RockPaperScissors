@@ -44,11 +44,12 @@ namespace RockPaperScizzorsLizardSpock
             //string roundSelections = "";
             do
             {
-                Player roundWinner = new Player();
+                //Player roundWinner = new Player();
                 Round thisRound = new Round();
                 roundResults = thisRound.playRound(players);
                 //pronounce the winner of this round
-                roundResults = roundResults + "\n" + rules.DetermineRoundWinner(players);
+                roundResults = roundResults + "\n" + rules.DetermineRoundWinner(players) +
+                    "Press Enter/Return to continue.";
                 UserInterface.displayMessage(roundResults, true);
             }
             while (! rules.gameOver(players));

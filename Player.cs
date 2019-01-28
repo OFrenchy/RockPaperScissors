@@ -28,8 +28,9 @@ namespace RockPaperScizzorsLizardSpock
             // TODO - validate selection later
             //return Convert.ToInt64(UserInterface.PromptForCharInput("Make a selection, enter\n0 for Rock\n1 for Paper\n2 for Scissors\n3 for Lizard\n4 for Spock" )) ;
             //return Convert.ToInt32( UserInterface.promptForStringInput("blah blah blah"));
-            string message = "Make a selection, enter\n1 for Rock\n2 for Paper\n3 for Scissors\n4 for Lizard\n5 for Spock";
-            return Convert.ToInt32(UserInterface.pickWholeNumberOneThrough(5, message, !isHuman)) - 1;
+            string message = name + "'s turn: Please make a selection, enter\n1 for Rock\n2 for Paper\n3 for Scissors\n4 for Lizard\n5 for Spock";
+            currentSelection = Convert.ToInt32(UserInterface.pickWholeNumberOneThrough(5, message, !isHuman) - 1);
+            return currentSelection;
         }
         
         public int GetCurrentSelection()

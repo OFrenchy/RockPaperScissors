@@ -35,7 +35,7 @@ namespace RockPaperScizzorsLizardSpock
                 //generate random number from 1 to upperBound 
                 //Random()
                 Random randomGenerator = new Random();
-                return(randomGenerator.Next(upperBound - 1) + 1);
+                return(randomGenerator.Next(upperBound) + 1);
             }
         }
 
