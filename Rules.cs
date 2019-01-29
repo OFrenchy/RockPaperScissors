@@ -14,22 +14,35 @@ namespace RockPaperScizzorsLizardSpock
         // Paper (1)    disproves   Spock (4)
         // Scissors (2) cuts        Paper (1)
         // Scissors (2) decapitates Lizard (3)
-        // Lizard (3)   poisons     Spock (4)
         // Lizard (3)   eats        Paper (1)
-        // Spock (4)    smashes     Scissors (2)
+        // Lizard (3)   poisons     Spock (4)
         // Spock (4)    vaporizes   Rock (0)
+        // Spock (4)    smashes     Scissors (2)
 
         // build list to hold rules
         List<List<int>> rules = new List<List<int>>();
-        // build each individual rule
-        List<int> rule0RockBeats = new List<int>() {2, 3};
-        List<int> rule1PaperBeats = new List<int>() {0, 4};
-        List<int> rule2ScissorsBeats = new List<int>() {1, 3};
-        List<int> rule3LizardBeats = new List<int>() {1, 4};
-        List<int> rule4SpockBeats = new List<int>() {0, 2};
+        // build each individual rule, what beats what list
+        List<int> rule0RockBeats = new List<int>() {2, 3};      // rock 0 beats scissors 2 & lizard 3
+        List<int> rule1PaperBeats = new List<int>() {0, 4};     // paper 1 beats rock 0 & spock 4
+        List<int> rule2ScissorsBeats = new List<int>() {1, 3};  // scissors 2 beats paper 1 and lizard 3
+        List<int> rule3LizardBeats = new List<int>() {1, 4};    // lizard 3 beats paper 1 and spock 4
+        List<int> rule4SpockBeats = new List<int>() {0, 2};     // spock 4 beats rock 0 and scissors 2
 
-        // TODO - change to calculate based on number of players
-        // change to one more than half of the players
+        // Could build list of verbs & add to the rules object, but I'm not sure how...
+        // temporarily will build a list of verbs;  if time allows Tuesday morning, I will add it
+        // & incorporate the verbs with the selections.  
+        // build list to hold verbs
+        List<List<string>> verbs = new List<List<string>>();
+        // build each individual verb list
+        List<string> rule0RockBeatsVerbs = new List<string>() { " crushes ", " crushes " };      // rock 0 beats scissors 2 & lizard 3
+        List<string> rule1PaperBeatsVerbs = new List<string>() { " covers ", " disproves " };     // paper 1 beats rock 0 & spock 4
+        List<string> rule2ScissorsBeatsVerbs = new List<string>() { " cuts " , " stabs " };  // scissors 2 beats paper 1 and lizard 3         
+        List<string> rule3LizardBeatsVerbs = new List<string>() { " eats ", " poisons " };    // lizard 3 beats paper 1 and spock 4
+        List<string> rule4SpockBeatsVerbs = new List<string>() { " vaporizes ", " smashes " };     // spock 4 beats rock 0 and scissors 2
+
+        // TODO - change to calculate based on number of players - winner must win a majority of rounds
+        // change gameWinnerRoundCount to be equal to one more than half of the players, or
+        // (players.count / 2) + 1
         int gameWinnerRoundCount = 2;  
 
         public Rules()
@@ -39,6 +52,12 @@ namespace RockPaperScizzorsLizardSpock
             rules.Add(rule2ScissorsBeats);
             rules.Add(rule3LizardBeats);
             rules.Add(rule4SpockBeats);
+
+            verbs.Add(rule0RockBeatsVerbs);
+            verbs.Add(rule1PaperBeatsVerbs);
+            verbs.Add(rule2ScissorsBeatsVerbs);
+            verbs.Add(rule3LizardBeatsVerbs);
+            verbs.Add(rule4SpockBeatsVerbs);
         }
         
         public string DetermineRoundWinner(List <Player> players)
@@ -51,13 +70,16 @@ namespace RockPaperScizzorsLizardSpock
             int i = 0;
             int playerToBeat = 0;
             bool roundEndsInTie = false;
+            int indexOfSelections;
+            string whatDefeatsWhatAndHow = "";
+            List<string> thisRoundWinnerVerbs;
+            int roundWinnerPlayerNumber;
+            int roundLoserPlayerNumber;
+
             do
             {
                 // if the 2nd player's choice is in the 1st player's choice Beats list, 
                 //      the 1st player wins, else the 2nd player wins
-                //List<int> rule4SpockBeats = new List<int>() { 0, 2 };
-                //rules[players[i].GetCurrentSelection].FindIndex( , players[i + 1].GetCurrentSelection);
-                //firstUsersSelectionBeatsList.IndexOf(players[i + 1].GetCurrentSelection());
                 
                 // Check for all players with the same selection
                 if (players[playerToBeat].GetCurrentSelection() == players[i + 1].GetCurrentSelection())
@@ -66,18 +88,37 @@ namespace RockPaperScizzorsLizardSpock
                 }
                 else
                 {
+                    // if there is more than two players, compare the selections of each pair, 
+                    // and store the winner in playerToBeatSelectionBeatsList
                     List<int> playerToBeatSelectionBeatsList = new List<int>();
                     playerToBeatSelectionBeatsList = rules[players[playerToBeat].GetCurrentSelection()];
-                    if (playerToBeatSelectionBeatsList.IndexOf(players[i + 1].GetCurrentSelection()) >= 0)
+                    indexOfSelections = playerToBeatSelectionBeatsList.IndexOf(players[i + 1].GetCurrentSelection());
+                    //if (playerToBeatSelectionBeatsList.IndexOf(players[i + 1].GetCurrentSelection()) >= 0)
+                    if (indexOfSelections >= 0)
                     {
+                        // TODO - MAYBE - add "scissors cuts paper, scizzors wins
+                        // construct message of what defeated what & how
+                        // playerToBeat won this round
+                        roundWinnerPlayerNumber = playerToBeat;
+                        roundLoserPlayerNumber = i + 1;
                         playerToBeat = i;   // first user beats second
                         roundEndsInTie = false;
                     }
                     else
                     {
+                        // construct message of what defeated what & how
+                        // player i + 1 won this round, playerToBeat lost
+                        roundWinnerPlayerNumber = i + 1;
+                        roundLoserPlayerNumber = playerToBeat;
+                        playerToBeatSelectionBeatsList = rules[players[roundWinnerPlayerNumber].GetCurrentSelection()];
+                        indexOfSelections = playerToBeatSelectionBeatsList.IndexOf(players[roundLoserPlayerNumber].GetCurrentSelection());
                         playerToBeat = i + 1;// second user beats first
                         roundEndsInTie = false;
                     }
+                    thisRoundWinnerVerbs = verbs[players[roundWinnerPlayerNumber].GetCurrentSelection()];
+                    whatDefeatsWhatAndHow = UserInterface.selectionNames[players[roundWinnerPlayerNumber].GetCurrentSelection()] +
+                        thisRoundWinnerVerbs[indexOfSelections] +
+                        UserInterface.selectionNames[players[roundLoserPlayerNumber].GetCurrentSelection()];
                 }
                 i++;
             }
@@ -91,7 +132,7 @@ namespace RockPaperScizzorsLizardSpock
             {
                 // playerToBeat is the winner of this round; increment his score
                 players[playerToBeat].incrementScore();
-                return players[playerToBeat].name + " wins this round.";
+                return whatDefeatsWhatAndHow + "; " + players[playerToBeat].name + " wins this round.  Please press Enter/Return to continue";
             }
         }
         public bool gameOver(List<Player> players)
@@ -109,5 +150,26 @@ namespace RockPaperScizzorsLizardSpock
             }
             return false;
         }
+        public string getListOfWhatBeatsWhatAndHow()
+        {
+            // Construct list of Paper covers Rock, etc.
+            List<int> selectionBeatsList;// = new List<int>();
+            List<string> listOfVerbsThisSelection;
+            string listOfWhatBeatsWhatAndHow = "Here are the rules:\n";
+            for (int i = 0; i < rules.Count; i++)
+            {
+                selectionBeatsList = rules[i];
+                listOfVerbsThisSelection = verbs[i];
+                for (int j = 0; j < listOfVerbsThisSelection.Count; j++)
+                {
+                    listOfWhatBeatsWhatAndHow = listOfWhatBeatsWhatAndHow +
+                        UserInterface.selectionNames[i] + listOfVerbsThisSelection[j] +
+                        UserInterface.selectionNames[ selectionBeatsList[j]] + "\n";
+                }
+            }
+            listOfWhatBeatsWhatAndHow = listOfWhatBeatsWhatAndHow + "In order to win the game, you must win a majority of rounds.  Good luck!";
+            return listOfWhatBeatsWhatAndHow;
+        }
     }
+
 }

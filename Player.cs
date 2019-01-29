@@ -19,17 +19,24 @@ namespace RockPaperScizzorsLizardSpock
         {
             this.score = 0;
             this.name = UserInterface.promptForStringInput("Enter this player's name:");
-            this.isHuman = UserInterface.promptForCharInput("Is this player human?  Enter y or n:" )  == Convert.ToChar("y");
+            //this.isHuman = UserInterface.promptForCharInput("Is this player human?  Enter y or n:" )  == Convert.ToChar("y");
+            this.isHuman = (UserInterface.promptForYesNoInput("Is this player human?  Enter y or n:") 
+                == Convert.ToChar("y"));
+
+            //promptForYesNoInput
         }
         // member methods - … Can Do …
         public virtual int MakeSelection(int rangeZeroBased)
         {
             // prompt for selection
-            // TODO - validate selection later
-            //return Convert.ToInt64(UserInterface.PromptForCharInput("Make a selection, enter\n0 for Rock\n1 for Paper\n2 for Scissors\n3 for Lizard\n4 for Spock" )) ;
-            //return Convert.ToInt32( UserInterface.promptForStringInput("blah blah blah"));
-            string message = name + "'s turn: Please make a selection, enter\n1 for Rock\n2 for Paper\n3 for Scissors\n4 for Lizard\n5 for Spock";
+            string message = name + "'s turn: Please make a selection, enter 1 for Rock, 2 for Paper, " +
+                "3 for Scissors, 4 for Lizard, or 5 for Spock: ";
             currentSelection = Convert.ToInt32(UserInterface.pickWholeNumberOneThrough(5, message, !isHuman) - 1);
+            // if this player is not human, write its selection to the window
+            if (!isHuman)
+            {
+                Console.WriteLine(currentSelection + 1);
+            }
             return currentSelection;
         }
         
@@ -41,6 +48,10 @@ namespace RockPaperScizzorsLizardSpock
         {
             score++;
             return score;
+        }
+        public void newGame()
+        {
+            score = 0;
         }
     }
 }

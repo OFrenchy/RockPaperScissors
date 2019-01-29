@@ -11,16 +11,7 @@ namespace RockPaperScizzorsLizardSpock
 
         // class - … Is A …
         // member variables - … Has A …
-
-        // players array of type Player
-        private Player[] players;
-        // rules array of type Rule
-        private Rule[] rules;
-        // round array of type Round
-        private Round[] round;
-        //private UserInterface userInterface;
         
-
         // constructor … Spawns A …
         public Game()
         {
@@ -34,27 +25,36 @@ namespace RockPaperScizzorsLizardSpock
             List<Player> players = new List<Player>();
             for (int i = 0; i < numberOfPlayers; i++)
             {
+                UserInterface.displayMessage("Player " + (i+1).ToString() + ":" , false);
                 players.Add(new Player());
             }
-            
-            // TODO - ccreate/add rules & methods
             Rules rules = new Rules();
-            
-            string roundResults = "";
-            //string roundSelections = "";
             do
             {
-                //Player roundWinner = new Player();
-                Round thisRound = new Round();
-                roundResults = thisRound.playRound(players);
-                //pronounce the winner of this round
-                roundResults = roundResults + "\n" + rules.DetermineRoundWinner(players) +
-                    "Press Enter/Return to continue.";
-                UserInterface.displayMessage(roundResults, true);
+                // Clear the screen
+                Console.Clear();
+                UserInterface.displayMessage(rules.getListOfWhatBeatsWhatAndHow(), false);
+                string roundResults = "";
+                do
+                {
+                    Round thisRound = new Round();
+                    roundResults = thisRound.playRound(players);
+                    //pronounce the winner of this round
+                    roundResults = rules.DetermineRoundWinner(players);
+                    UserInterface.displayMessage(roundResults, false);
+                }
+                // pronounce the winner
+                while (!rules.gameOver(players));
+                resetPlayersScores(players);
             }
-            while (! rules.gameOver(players));
-            // pronounce the winner
-
+            while (UserInterface.promptForYesNoInput("Do you want to play again? y or n").ToString() == "y") ;
+        }
+        public void resetPlayersScores(List<Player> players)
+        {
+            foreach (Player thisPlayer in players)
+            {
+                thisPlayer.score = 0;
+            }
         }
 
     }

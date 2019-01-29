@@ -52,7 +52,6 @@
     <Compile Include="Round.cs" />
     <Compile Include="Rule.cs" />
     <Compile Include="Rules.cs" />
-    <Compile Include="Selection.cs" />
     <Compile Include="UserInterface.cs" />
   </ItemGroup>
   <ItemGroup>

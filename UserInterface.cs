@@ -9,48 +9,91 @@ namespace RockPaperScizzorsLizardSpock
     public static class UserInterface
     {
         public static string[] selectionNames = {"Rock", "Paper", "Scissors", "Lizard", "Spock"};
-        //// helper function to pass into promptFor to validate yes/no answers
-        //// CHANGED to allow user to hit escape or click cancel, which results in a null
-        //public string yesNo(string input)
-        //{
-        //    string test = input.ToLower();
-        //    test = test(0);
-        //    return test == "y" || test == "n"  // || input == null;
-        //}
-
-        public static int pickWholeNumberOneThrough(int upperBound, string message, bool isRandom = false)
+        
+        public static int pickWholeNumberOneThrough(int upperBound, string message, bool isRandom)
         {
             // pick a whole number from 1 to upperBound;  if you want a random number, don't prompt
             if (!isRandom)
             {
-                string input = promptForStringInput(message);
-                // TODO - validate input, 
-                // if string
-                // if beyond upperBound
-
-                return int.Parse(input);  // TODO tryParse
+                int intInput = promptForIntegerInput(message, 1, upperBound);
+                return intInput;
             }
             else
             {
                 //generate random number from 1 to upperBound 
-                //Random()
+                displayMessage(message, false);
                 Random randomGenerator = new Random();
                 return(randomGenerator.Next(upperBound) + 1);
             }
         }
-
         public static string promptForStringInput(string message)
         {
-            Console.WriteLine(message);
-            // TODO - validate input
-            return Console.ReadLine();
+            string input = "";
+            do
+            {
+                Console.WriteLine(message);
+                input = Console.ReadLine().Trim();
+            }
+            while (input == "");
+            return input;
+        }
+        public static char promptForYesNoInput(string message) 
+        {
+            string input = "";
+            bool validInput = false;
+            do
+            {
+                Console.WriteLine(message);
+                input = Console.ReadLine().Trim().ToLower() ;
+                if (input.Length > 0)
+                {
+                    input = input.ToLower();
+                    input = input.Substring(0, 1);
+                    if (input == "y" || input == "n")
+                    {
+                        validInput = true;
+                    }
+                }
+            }
+            while (validInput == false);
+            return Convert.ToChar(input);
+        }
+        public static int promptForIntegerInput(string message, int lowerBound, int upperBound)
+        {
+            int inputInteger = 0;
+            bool isInteger;
+            string input;
+            do
+            {
+                isInteger = false;
+                Console.WriteLine(message);
+                input = Console.ReadLine();
+                //bool isInteger = int.TryParse(input, inputInteger); 
+                // in order to use try/parse
+                try
+                {
+                    inputInteger = int.Parse(input);
+                    isInteger = true;
+                    if (inputInteger < lowerBound || inputInteger > upperBound)
+                    {
+                        Console.WriteLine("That number is out of range.");
+                    }
+                }
+                catch (Exception thisException)
+                {
+                    Console.WriteLine("That is not a number.");
+                    //Console.WriteLine(thisException.ToString());
+                }
+            }
+            while (isInteger == false || inputInteger < lowerBound || inputInteger > upperBound);
+            return inputInteger;
         }
         public static char promptForCharInput(string message)
         {
             Console.WriteLine(message);
             // TODO - validate input
             //string test = Console.ReadLine();
-            return Convert.ToChar(Console.ReadLine().Substring(0, 1).ToLower());    //.Substring(0, 1);
+            return Convert.ToChar(Console.ReadLine().Substring(0, 1).ToLower());
         }
         public static void displayMessage(string message, bool pauseForReturnEnter)
         {
@@ -60,12 +103,10 @@ namespace RockPaperScizzorsLizardSpock
                 Console.Read();
             }
         }
-        //public static string UserInterface()
-        //{
 
-        //}
-
-
-
+        //TODO - add CLS // Clear the screen
+        //Console.Clear();
+                 
+        
     }
 }
