@@ -147,7 +147,7 @@ namespace RockPaperScizzorsLizardSpock
             // display the scores of each player & congratulate the winner, & return true
             foreach (Player thisPlayer in players)
             {
-                if (thisPlayer.score >= gameWinnerRoundCount)
+                if (thisPlayer.getCurrentScore() >= gameWinnerRoundCount)
                 {
                     // congratulate winner
                     UserInterface.displayMessage(thisPlayer.name + " wins!", false);

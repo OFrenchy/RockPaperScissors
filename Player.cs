@@ -13,11 +13,11 @@ namespace RockPaperScizzorsLizardSpock
         public bool isHuman;
         public string name;
         // TODO - how do I make this private, & still work?
-        public int score;
+        protected int score;
         // TODO - find out if private variables are accessible in child classes
         // private doesn't work when trying to set it in the Human & AI classes...???
         //private int currentSelection;
-        public int currentSelection;
+        protected int currentSelection;
 
         public Player(string name, bool isHuman)
         {
@@ -52,9 +52,13 @@ namespace RockPaperScizzorsLizardSpock
             score++;
             return score;
         }
-        public void newGame()
+        public void resetScore() 
         {
             score = 0;
+        }
+        public int getCurrentScore()
+        {
+            return score;
         }
     }
 }

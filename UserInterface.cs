@@ -9,7 +9,7 @@ namespace RockPaperScizzorsLizardSpock
     public static class UserInterface
     {
         public static string[] selectionNames = {"Rock", "Paper", "Scissors", "Lizard", "Spock"};
-        
+
         public static int pickWholeNumberOneThrough(int upperBound, string message, bool isRandom)
         {
             // pick a whole number from 1 to upperBound;  if you want a random number, don't prompt

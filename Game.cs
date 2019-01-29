@@ -66,7 +66,7 @@ namespace RockPaperScizzorsLizardSpock
         {
             foreach (Player thisPlayer in players)
             {
-                thisPlayer.score = 0;
+                thisPlayer.resetScore();
             }
         }
 
