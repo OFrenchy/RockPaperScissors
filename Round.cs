@@ -12,10 +12,9 @@ namespace RockPaperScizzorsLizardSpock
         // member variables - … Has A …
 
         // constructor … Spawns A …
-        public Round()
-        {
-
-        }
+        //public Round()
+        //{
+        //}
 
         // member methods - … Can Do …
 
@@ -28,7 +27,6 @@ namespace RockPaperScizzorsLizardSpock
             {
                 userPicks = userPicks + thisPlayer.name + " picked " +
                     UserInterface.selectionNames[thisPlayer.MakeSelection(UserInterface.selectionNames.Length)] + ". ";
-                //? thisPlayer.name;// + "; " + thisPlayer.GetCurrentSelection().ToString ;
             }
             // Announce who picked what
             UserInterface.displayMessage(userPicks, false);

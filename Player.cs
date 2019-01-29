@@ -12,18 +12,22 @@ namespace RockPaperScizzorsLizardSpock
         // member variables - … Has A …
         public bool isHuman;
         public string name;
+        // TODO - how do I make this private, & still work?
         public int score;
-        private int currentSelection;
-        
-        public Player() //string name, bool isHuman)
+        // TODO - find out if private variables are accessible in child classes
+        // private doesn't work when trying to set it in the Human & AI classes...???
+        //private int currentSelection;
+        public int currentSelection;
+
+        public Player(string name, bool isHuman)
         {
             this.score = 0;
-            this.name = UserInterface.promptForStringInput("Enter this player's name:");
-            //this.isHuman = UserInterface.promptForCharInput("Is this player human?  Enter y or n:" )  == Convert.ToChar("y");
-            this.isHuman = (UserInterface.promptForYesNoInput("Is this player human?  Enter y or n:") 
-                == Convert.ToChar("y"));
-
-            //promptForYesNoInput
+            // works b4 huyman/ai class implementsation
+            //this.name = UserInterface.promptForStringInput("Enter this player's name:");
+            //this.isHuman = (UserInterface.promptForYesNoInput("Is this player human?  Enter y or n:") 
+            //    == Convert.ToChar("y"));
+            this.name = name;
+            this.isHuman = isHuman;
         }
         // member methods - … Can Do …
         public virtual int MakeSelection(int rangeZeroBased)
@@ -39,7 +43,6 @@ namespace RockPaperScizzorsLizardSpock
             }
             return currentSelection;
         }
-        
         public int GetCurrentSelection()
         {
             return currentSelection;

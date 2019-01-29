@@ -19,7 +19,7 @@ namespace RockPaperScizzorsLizardSpock
         // Spock (4)    vaporizes   Rock (0)
         // Spock (4)    smashes     Scissors (2)
 
-        // build list to hold rules
+        // build list to hold rules;  each rule could be its own class given more time
         List<List<int>> rules = new List<List<int>>();
         // build each individual rule, what beats what list
         List<int> rule0RockBeats = new List<int>() {2, 3};      // rock 0 beats scissors 2 & lizard 3
@@ -30,8 +30,12 @@ namespace RockPaperScizzorsLizardSpock
 
         // Could build list of verbs & add to the rules object, but I'm not sure how...
         // temporarily will build a list of verbs;  if time allows Tuesday morning, I will add it
-        // & incorporate the verbs with the selections.  
+        // & incorporate the verbs with the selections. 
+        // Note Tuesdsay morning:  finished at 9, decided to help fellow student with last remaining hour.
         // build list to hold verbs
+        // Note:  The following list of verbs should be moved to the UserInterface class, 
+        // so that it would be easy to change just the UserInterface 
+        // in order to use another language
         List<List<string>> verbs = new List<List<string>>();
         // build each individual verb list
         List<string> rule0RockBeatsVerbs = new List<string>() { " crushes ", " crushes " };      // rock 0 beats scissors 2 & lizard 3
@@ -40,7 +44,8 @@ namespace RockPaperScizzorsLizardSpock
         List<string> rule3LizardBeatsVerbs = new List<string>() { " eats ", " poisons " };    // lizard 3 beats paper 1 and spock 4
         List<string> rule4SpockBeatsVerbs = new List<string>() { " vaporizes ", " smashes " };     // spock 4 beats rock 0 and scissors 2
 
-        // TODO - change to calculate based on number of players - winner must win a majority of rounds
+        // If I implement more than 2 players, change gameWinnerRoundCount to calculate based on number of 
+        // players - winner must win a majority of rounds
         // change gameWinnerRoundCount to be equal to one more than half of the players, or
         // (players.count / 2) + 1
         int gameWinnerRoundCount = 2;  
@@ -80,6 +85,8 @@ namespace RockPaperScizzorsLizardSpock
             {
                 // if the 2nd player's choice is in the 1st player's choice Beats list, 
                 //      the 1st player wins, else the 2nd player wins
+                // This is necessary for more than 2 players;  
+                // however more than 2 players has not been tested
                 
                 // Check for all players with the same selection
                 if (players[playerToBeat].GetCurrentSelection() == players[i + 1].GetCurrentSelection())
@@ -96,7 +103,6 @@ namespace RockPaperScizzorsLizardSpock
                     //if (playerToBeatSelectionBeatsList.IndexOf(players[i + 1].GetCurrentSelection()) >= 0)
                     if (indexOfSelections >= 0)
                     {
-                        // TODO - MAYBE - add "scissors cuts paper, scizzors wins
                         // construct message of what defeated what & how
                         // playerToBeat won this round
                         roundWinnerPlayerNumber = playerToBeat;
@@ -171,5 +177,4 @@ namespace RockPaperScizzorsLizardSpock
             return listOfWhatBeatsWhatAndHow;
         }
     }
-
 }

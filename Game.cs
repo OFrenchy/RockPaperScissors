@@ -13,10 +13,9 @@ namespace RockPaperScizzorsLizardSpock
         // member variables - … Has A …
         
         // constructor … Spawns A …
-        public Game()
-        {
-            
-        }
+        //public Game()
+        //{
+        //}
 
         // member methods - … Can Do …
         public void playRockPaperScissorsLizardSpock(int numberOfPlayers)
@@ -26,13 +25,27 @@ namespace RockPaperScizzorsLizardSpock
             for (int i = 0; i < numberOfPlayers; i++)
             {
                 UserInterface.displayMessage("Player " + (i+1).ToString() + ":" , false);
-                players.Add(new Player());
+                string name = UserInterface.promptForStringInput("Enter this player's name: ");
+                bool isHuman = UserInterface.promptForYesNoInput("Is this player human?  Enter y or n:") == Convert.ToChar("y");
+                // TODO:
+                // I know I can condense this to be an inline if (immediate if?), but I don't yet know how - 
+                // if time allows, I will research
+                if (isHuman)
+                {
+                    // add human class
+                    players.Add(new Human(name, isHuman));
+                }
+                else
+                {
+                    // add AI class
+                    players.Add(new AI(name));
+                }
             }
             Rules rules = new Rules();
             do
             {
                 // Clear the screen
-                Console.Clear();
+                UserInterface.clearScreen();
                 UserInterface.displayMessage(rules.getListOfWhatBeatsWhatAndHow(), false);
                 string roundResults = "";
                 do
@@ -43,7 +56,7 @@ namespace RockPaperScizzorsLizardSpock
                     roundResults = rules.DetermineRoundWinner(players);
                     UserInterface.displayMessage(roundResults, false);
                 }
-                // pronounce the winner
+                // pronounce the game winner
                 while (!rules.gameOver(players));
                 resetPlayersScores(players);
             }

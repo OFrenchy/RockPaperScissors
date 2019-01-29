@@ -79,6 +79,7 @@ namespace RockPaperScizzorsLizardSpock
                         Console.WriteLine("That number is out of range.");
                     }
                 }
+                // Note:  thisException is not used, but left in for future use/debugging/improvement
                 catch (Exception thisException)
                 {
                     Console.WriteLine("That is not a number.");
@@ -88,6 +89,7 @@ namespace RockPaperScizzorsLizardSpock
             while (isInteger == false || inputInteger < lowerBound || inputInteger > upperBound);
             return inputInteger;
         }
+        // Note:  this method not used in RPSLS game;  left here as stub for future improvement
         public static char promptForCharInput(string message)
         {
             Console.WriteLine(message);
@@ -103,10 +105,9 @@ namespace RockPaperScizzorsLizardSpock
                 Console.Read();
             }
         }
-
-        //TODO - add CLS // Clear the screen
-        //Console.Clear();
-                 
-        
+        public static void clearScreen()
+        {
+            Console.Clear();
+        }
     }
 }
